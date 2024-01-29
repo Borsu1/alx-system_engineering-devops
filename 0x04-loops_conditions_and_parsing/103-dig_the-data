@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#This script displays the group data of visitors IP and HTTP.
+
+# Check if a log file is provided
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 LOG_FILE"
+    exit 1
+fi
+
+LOG_FILE=$1
+
+# Use awk to parse the log file
+awk '{
+    # Extract the IP and HTTP status code
+    ip=$1
+    status=$9
+
+    # Create a composite key of IP and status
+    key=ip" "status
+
+    # Increment the count for this key
+    count[key]++
+}
+END {
+    # Print the counts in the required format
+    for (key in count)
+        print count[key], key
+}' "$LOG_FILE" | sort -rn
