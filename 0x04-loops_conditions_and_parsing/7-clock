@@ -8,12 +8,11 @@ minute=1
 
 while [ $hour -le 12 ]
 do
-echo "Hour: $hour"
 while [ $minute -le 59 ]
 do
-	echo "$minute"
+	echo "$hour:$minute"
 	minute=$((minute+1))
 done
 hour=$((hour+1))
 minute=1
-done | head -n 70
+done
