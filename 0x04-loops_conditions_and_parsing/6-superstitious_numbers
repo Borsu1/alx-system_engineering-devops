@@ -7,7 +7,7 @@ counter=1
 
 while [ $counter -le 20 ]
 do
-echo 4counter
+echo $counter
 case $counter in 4)
 echo "Bad luckfrom China"
 ;;
