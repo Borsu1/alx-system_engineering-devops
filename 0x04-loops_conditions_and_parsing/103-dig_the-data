@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #This script displays the group data of visitors IP and HTTP.
 
-if  [! -f "apache-access.log" ]; then
+if  [ ! -f "apache-access.log" ]; then
 	echo "Error: File 'apache-access.log' not found"
 	exit 1
 fi
