@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #This script displays listening ports.
 
-echo "Active internet connections (only servers)"
+echo ""
 ss -plntu
-echo "Active UNIX domain sockets (only servers)"
+echo ""
 ss -plnx
