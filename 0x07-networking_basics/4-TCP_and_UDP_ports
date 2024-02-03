@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 #This script displays listening ports.
 
-echo ""
-ss -plntu
-echo ""
-ss -plnx
+echo "Listening ports"
+netstat -ltnp
