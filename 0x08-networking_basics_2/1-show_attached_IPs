@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 #This script displays all active IPv4 IPs.
 
-# Get all the network interface names
-interfaces=$(ls /sys/class/net)
-
-for interface in $interfaces
-do
-  # Use the ip command to get the IP addresses of each interface
-  ip -4 addr show "$interface" | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
-done
+# Get all the IP addresses
+ip -4 addr | awk '/inet/ {print $2}' | cut -d'/' -f1
