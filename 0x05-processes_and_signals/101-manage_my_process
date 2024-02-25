@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # When passing the argument start:
 #	1.Starts manage_my_process
 #	2.Creates a file containing its PID in /var/run/my_process.pid
@@ -23,12 +22,12 @@ case "$1" in
         echo "manage_my_process started"
         ;;
     stop)
-        kill $(cat /var/run/my_process.pid)
+        kill "$(cat /var/run/my_process.pid)"
         rm /var/run/my_process.pid
         echo "manage_my_process stopped"
         ;;
     restart)
-        kill $(cat /var/run/my_process.pid)
+        kill "$(cat /var/run/my_process.pid)"
         rm /var/run/my_process.pid
         manage_my_process &
         echo $! > /var/run/my_process.pid
