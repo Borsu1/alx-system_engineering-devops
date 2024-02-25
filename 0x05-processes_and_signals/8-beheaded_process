@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # This script stops the 7-highlander process.
 
-pkill -f "7-highlander"
+ps -ef | grep "7-highlander" | grep -v grep | awk '{print $2}' | xargs kill -9
