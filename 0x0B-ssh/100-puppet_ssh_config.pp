@@ -1,18 +1,12 @@
-# This is a Puppet manifest for managing SSH client configuration
-# Ensure the .ssh directory exists
-file { '/home/ubuntu/.ssh/':
-  ensure => directory,
-  owner  => 'ubuntu',
-  group  => 'ubuntu',
-  mode   => '0700',
-}
-
-# Then ensure the config file exists
-file { '/home/ubuntu/.ssh/config':
+# This Puppet script configures the SSH client to use a specific private key and disable password authentication
+file { '/etc/ssh/ssh_config':
   ensure  => file,
-  require => File['/home/ubuntu/.ssh/'],
-  owner   => 'ubuntu',
-  group   => 'ubuntu',
+  owner   => 'root',
+  group   => 'root',
   mode    => '0600',
-  content => "Host *\n  IdentityFile ~/.ssh/school\n  PasswordAuthentication no\n",
+  content => "
+    Host *
+      IdentityFile ~/.ssh/school
+      PasswordAuthentication no
+  ",
 }
