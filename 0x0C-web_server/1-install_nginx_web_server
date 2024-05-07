@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+#Installing nginx into web server
+# Update the package lists for upgrades and new package installations
+sudo apt-get update -y
+
+# Install nginx
+sudo apt-get install nginx -y
+
+# Start nginx
+sudo service nginx start
+
+# Make sure nginx is listening on port 80
+if ! sudo netstat -tuln | grep ':80 '; then
+    echo "Nginx is not listening on port 80. Exiting."
+    exit 1
+fi
+
+# Create a custom HTML page
+echo "Hello World!" | sudo tee /var/www/html/index.html
+
+# Modify the default nginx configuration file to serve your page
+sudo sed -i 's|root /var/www/html;|root /var/www/html/index.html;|' /etc/nginx/sites-available/default
+
+# Restart nginx
+sudo service nginx restart
+
+# Test the setup by querying the page with curl
+if ! curl -s http://localhost/ | grep 'Hello World!'; then
+    echo "The setup is not correct. Exiting."
+    exit 1
+fi
+
+echo "Setup complete. Nginx is serving a page that contains 'Hello World!'"

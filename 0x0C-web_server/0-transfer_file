@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Command script that transfers a file from our client to a serve.
+# Check if less than 4 parameters are passed
+if [ "$#" -lt 4 ]; then
+    echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+    exit 1
+fi
+
+# Assign the parameters to variables for better readability
+PATH_TO_FILE=$1
+IP=$2
+USERNAME=$3
+PATH_TO_SSH_KEY=$4
+
+# Use scp with the provided parameters to transfer the file
+scp -i "$PATH_TO_SSH_KEY" -o StrictHostKeyChecking=no "$PATH_TO_FILE" "$USERNAME@$IP:~/"
+
+echo "File transfer complete."
