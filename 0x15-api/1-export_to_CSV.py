@@ -42,7 +42,7 @@ def get_employee_todo_list_progress(employee_id):
 
     # Write data to CSV
     with open(f'{employee_id}.csv', 'w', newline='') as file:
-        writer = csv.writer(file)
+        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
         writer.writerows(data)
 
 
