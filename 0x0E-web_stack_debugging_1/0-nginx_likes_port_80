@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+-- A  write a Bash script with the minimum number of commands to automate your fix.
+# Update packages and install nginx
+sudo apt-get update
+sudo apt-get install -y nginx
+
+# Start nginx service
+sudo service nginx start
+
+# Check if nginx is running
+if systemctl status nginx | grep -q 'running'; then
+    echo "Nginx is running"
+else
+    echo "Nginx is not running"
+    exit 1
+fi
+
+# Check if nginx is listening on port 80
+if sudo lsof -i:80 | grep -q 'nginx'; then
+    echo "Nginx is listening on port 80"
+else
+    echo "Nginx is not listening on port 80"
+    exit 1
+fi
+
+# If everything is fine, print a success message
+echo "Nginx is set up correctly"
