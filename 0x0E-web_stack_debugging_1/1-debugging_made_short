@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-# Fixing a bug in task#0.
-service nginx start
-lsof -i:80 | grep nginx
-echo
