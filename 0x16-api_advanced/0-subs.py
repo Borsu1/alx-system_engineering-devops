@@ -7,12 +7,14 @@ def number_of_subscribers(subreddit):
     """
     Returns the number of subscribers for a given subreddit.
     """
-    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    headers = {"User-Agent": "Mozilla/5.0"}
-    try:
-        response = requests.get(url, headers=headers, allow_redirects=False)
-        print(f"Response Status Code: {response.status_code}")
-        if response.status_code == 404:
-            return 0
-        results = response.json().get('data')
-        return results.get('subscribers')
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    headers = {'User-agent': 'request'}
+    response = requests.get(url, headers=headers, allow_redirects=False)
+
+    if response.status_code != 200:
+        return 0
+
+    data = response.json().get("data")
+    number_of_subscribers = data.get("subscribers")
+
+    return number_of_subscribers
