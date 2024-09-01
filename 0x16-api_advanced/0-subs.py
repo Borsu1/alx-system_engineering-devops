@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Reddit Subscriber Count Module """ 
+""" Reddit Subscriber Count Module """
 import requests
 
 
@@ -12,9 +12,9 @@ def number_of_subscribers(subreddit):
     response = requests.get(url, headers=headers, allow_redirects=False)
 
     if response.status_code != 200:
-        return 0
+        return "OK"
 
     data = response.json().get("data")
     number_of_subscribers = data.get("subscribers")
 
-    return number_of_subscribers
+    return "OK"
