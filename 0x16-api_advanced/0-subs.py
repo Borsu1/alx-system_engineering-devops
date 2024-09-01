@@ -11,10 +11,9 @@ def number_of_subscribers(subreddit):
     headers = {'User-agent': 'request'}
     response = requests.get(url, headers=headers, allow_redirects=False)
 
-    if response.status_code != 200:
-        return "OK"
-
-    data = response.json().get("data")
-    number_of_subscribers = data.get("subscribers")
-
-    return "OK"
+    if response.status_code == 200:
+        data = response.json().get("data")
+        number_of_subscribers = data.get("subscribers")
+        return subscribers
+    else:
+        return 0
