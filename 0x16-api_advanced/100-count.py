@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+    """
+    Counts the occurrences of words in the titles of hot posts
+    in a given subreddit.
+    """
 import requests
 
 
