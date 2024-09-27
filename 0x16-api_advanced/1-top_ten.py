@@ -1,31 +1,33 @@
 #!/usr/bin/python3
-""" queries the Reddit API and prints the titles of the first 10 hot
-        posts listed for a given subreddit.
-    """
+"""
+Script to print hot posts on a given Reddit subreddit.
+"""
+
+
 import requests
 
-
 def top_ten(subreddit):
-    # Define the URL for the subreddit's hot.json endpoint
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
-    # Set a custom User-Agent to avoid Too Many Requests error
+    # Construct the URL for the Reddit API request
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+    # Set the headers to mimic a browser request
     headers = {'User-Agent': 'Mozilla/5.0'}
-
+    # Make the GET request to the Reddit API
+    response = requests.get(url, headers=headers)
+    
+    # Check if the response status code is not 200 (OK)
+    if response.status_code != 200:
+        print("none")
+        return
+    
     try:
-        # Make the GET request to the Reddit API
-        response = requests.get(
-                url, headers=headers, allow_redirects=False
-                )
-        # Check if the request was successful
-        if response.status_code == 200:
-            # Parse the JSON response
-            data = response.json()
-            # Extract and print the titles of the first 10 hot posts
-            for post in data['data']['children']:
-                print(post['data']['title'])
+        # Attempt to parse the JSON response
+        results = response.json().get("data")
+        if results:
+            # Loop through the first 10 posts and print their titles
+            for post in results.get("children", [])[:10]:
+                print(post.get("data").get("title"))
         else:
-            # If the subreddit is invalid, print None
-            print(None)
-    except requests.RequestException:
-        # Handle any request exceptions
-        print(None)
+            print("No data found")
+    except ValueError:
+        # Handle the case where the response is not valid JSON
+        print("Invalid JSON response")
